@@ -18,22 +18,22 @@ st.caption("GreySpaces Retail Creative Strategist")
 
 # ── Sidebar: Customer Context ─────────────────────────────────────────────────
 with st.sidebar:
-    st.header("Customer Context")
-    customer_name    = st.text_input("Customer",       value="Acme Corp")
-    arr              = st.text_input("ARR",            value="$48,000")
-    contact_name     = st.text_input("Contact Name",   value="Sarah Chen")
-    last_contact     = st.text_input("Last Contact",   value="22 days ago")
-    last_interaction = st.text_input("Last Interaction", value="Demo call — requested pricing")
-    churn_risk       = st.selectbox("Churn Risk",      ["Low", "Medium", "High"], index=1)
+    st.header("Project Context")
+    brand_name       = st.text_input("Brand Name",         value="")
+    project_name     = st.text_input("Project Name",       value="")
+    authorised_person= st.text_input("Authorised Person",  value="")
+    category         = st.text_input("Category",           value="")
+    timeline         = st.text_input("Timeline",           value="")
+    project_brief    = st.text_area("Project Brief / Objective", value="", height=100)
 
-    if st.button("Load Customer", use_container_width=True):
+    if st.button("Load Project", use_container_width=True):
         st.session_state.customer_context = {
-            "Customer":         customer_name,
-            "ARR":              arr,
-            "Contact name":     contact_name,
-            "Last contact":     last_contact,
-            "Last interaction": last_interaction,
-            "Churn risk":       churn_risk,
+            "Brand Name":             brand_name,
+            "Project Name":           project_name,
+            "Authorised Person":      authorised_person,
+            "Category":               category,
+            "Timeline":               timeline,
+            "Project Brief":          project_brief,
         }
         # Reset agent with new context
         st.session_state.agent = CRMManagerAgent(api_key=api_key)
@@ -50,14 +50,7 @@ with st.sidebar:
 # ── Session State Init ────────────────────────────────────────────────────────
 if "agent" not in st.session_state:
     st.session_state.agent = CRMManagerAgent(api_key=api_key)
-    st.session_state.agent.load_customer({
-        "Customer":         "Acme Corp",
-        "ARR":              "$48,000",
-        "Contact name":     "Sarah Chen",
-        "Last contact":     "22 days ago",
-        "Last interaction": "Demo call — requested pricing",
-        "Churn risk":       "Medium",
-    })
+    st.session_state.agent.load_customer({})
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
